@@ -130,6 +130,7 @@ export const getStaticProps: GetStaticProps = async context => {
   const prismic = getPrismicClient({});
   const { slug } = context.params
   const response = await prismic.getByUID('posts', String(slug), {});
+  console.log(response)
 
   const post = {
     uid: response.uid,
@@ -139,7 +140,7 @@ export const getStaticProps: GetStaticProps = async context => {
       subtitle: response.data.subtitle,
       author: response.data.author,
       banner: {
-        url: response.data?.main?.url,
+        url: response.data.banner.url,
       },
       content: response.data.content.map(content => {
         return {
@@ -150,7 +151,6 @@ export const getStaticProps: GetStaticProps = async context => {
     }
   }
 
-  console.log(response)
 
   // TODO
   return {
